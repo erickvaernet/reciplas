@@ -31,7 +31,7 @@ require "database.php";
                                 Inventario
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Articulos</a></li>
+                                <li><a class="dropdown-item" href="./articulos.php">Articulos</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -116,8 +116,8 @@ require "database.php";
                     Todos
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Producto</a></li>
-                    <li><a class="dropdown-item" href="#">Materia prima</a></li>
+                    <li><a class="dropdown-item" href="./productos.php">Producto</a></li>
+                    <li><a class="dropdown-item" href="./matprima.php">Materia prima</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
@@ -140,16 +140,17 @@ require "database.php";
                         <th scope="col" class="table-dark">Categoria</th>
                         <th scope="col" class="table-dark">Stock</th>
                         <th scope="col" class="table-dark">Unidad de medida</th>
+                        <th scope="col" class="table-dark">Tipo</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
                     $sql = "SELECT idArt as codigo , a.Nombre nombre_articulo, a.descripcion descripcion_articulo,
-                     c.Nombre categoria, a.stock stock, um.Nombre unidad_medida 
-                     FROM `Articulo` a inner JOIN Unidad_Medida um on a.Unidad_Medida_idUnidad_Medida = um.idUnidad_Medida 
-                     inner JOIN Sector_Deposito se on a.Sector_Deposito_idSector_Deposito = se.idSector_Deposito 
-                     inner JOIN Tipo t on a.Tipo_idTipo= t.idTipo 
-                     inner JOIN Categoria c on a.Categoria_idCategoria = c.idCategoria";
+                    c.Nombre categoria, a.stock stock, um.Nombre unidad_medida, a.Tipo_idTipo tipo_articulo 
+                    FROM `Articulo` a inner JOIN Unidad_Medida um on a.Unidad_Medida_idUnidad_Medida = um.idUnidad_Medida 
+                    inner JOIN Sector_Deposito se on a.Sector_Deposito_idSector_Deposito = se.idSector_Deposito 
+                    inner JOIN Tipo t on a.Tipo_idTipo= t.idTipo 
+                    inner JOIN Categoria c on a.Categoria_idCategoria = c.idCategoria";
 
                     $query = mysqli_query($enlace, $sql);
                     $resultado = $enlace->query($sql);
@@ -165,15 +166,18 @@ require "database.php";
                             $categoria_articulo = $fila['categoria'];
                             $stock_articulo = $fila['stock'];
                             $unidad_medida = $fila['unidad_medida'];
+                            $tipo_articulo = $fila['tipo_articulo'];
 
-                            print " <tr>
-                        <th scope='row' class='table-dark'>$codigo_articulo</th>
-                        <td class='table-dark'>$nombre_articulo</td>
-                        <td class='table-dark'>$descripcion_articulo</td>
-                        <td class='table-dark'>$categoria_articulo</td>
-                        <td class='table-dark'>$stock_articulo</td>
-                        <td class='table-dark'>$unidad_medida</td>
-                      </tr>";
+                           print " <tr>
+                            <th scope='row' class='table-dark'>$codigo_articulo</th>
+                            <td class='table-dark'>$nombre_articulo</td>
+                            <td class='table-dark'>$descripcion_articulo</td>
+                            <td class='table-dark'>$categoria_articulo</td>
+                            <td class='table-dark'>$stock_articulo</td>
+                            <td class='table-dark'>$unidad_medida</td>";
+                            if($tipo_articulo==1)print"<td class='table-dark'>Materia Prima</td>";
+                            if($tipo_articulo==2)print"<td class='table-dark'>Producto</td>";
+                           print "</tr>";
                         }
                     } else {
                         print "ERROR CRITICO";
