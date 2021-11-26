@@ -1,9 +1,9 @@
 <?php
-    require "database.php";
+require "database.php";
+/*
     session_start();
-    if(!$_SESSION['activa']) header('Location: login.php');
+    if(!$_SESSION['activa']) header('Location: login.php');*/
 ?>
-
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -30,7 +30,7 @@
                                 Inventario
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Articulos</a></li>
+                                <li><a class="dropdown-item" href="./articulos.php">Articulos</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -115,8 +115,8 @@
                     Todos
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Producto</a></li>
-                    <li><a class="dropdown-item" href="#">Materia prima</a></li>
+                    <li><a class="dropdown-item" href="./articulos.php">Todos</a></li>
+                    <li><a class="dropdown-item" href="./productos.php">Productos</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>

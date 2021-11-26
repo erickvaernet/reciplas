@@ -1,4 +1,4 @@
-CAMBIAR PRECIO VENTA Y COMPRA A NULO
+CAMBIAR PRECIO VENTA Y COMPRA A NULO, SECTOR DEPOSITO NULL
 
 
 insert into Unidad_Medida (nombre) values ("kilogramos");
@@ -14,9 +14,10 @@ insert into Sector_Deposito (nombre) values ("producto");
 insert into Tipo (nombre) values ("materia prima");
 insert into Tipo (nombre) values ("producto");
 
-insert INTO Categoria (nombre, descripcion) values("pellets-r", "Pellets provenientes de material reciclado");
+insert INTO Categoria (nombre, descripcion) values("Pellets-r", "Pellets provenientes de material reciclado");
 insert INTO Categoria (nombre, descripcion) values("Muebles", "Muebles de madera reciclada");
 insert INTO Categoria (nombre, descripcion) values("Envases", "Envases hechos a partir de plastico reciclado");
+insert INTO Categoria (nombre, descripcion) values("Reciclable", "Todo material que se pueda reciclar");
 
 insert into Articulo (Descripcion, Nombre, precio_venta, precio_compra, stock, stock_minimo, Activo, Unidad_Medida_idUnidad_Medida, Sector_Deposito_idSector_Deposito, tipo_idtipo, categoria_idCategoria) values("Envase reciclable", "Envase R",20,NULL,1000,100,true,2,2,2,3);
 insert into Articulo (Descripcion, Nombre, precio_venta, precio_compra, stock, stock_minimo, Activo, Unidad_Medida_idUnidad_Medida, Sector_Deposito_idSector_Deposito, tipo_idtipo, categoria_idCategoria) values("Envase reciclable tipo 2", "Envase R2",20,NULL,1000,100,true,2,2,2,3);

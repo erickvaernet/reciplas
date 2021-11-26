@@ -1,7 +1,8 @@
 <?php
-    require "database.php";
+require "database.php";
+/*
     session_start();
-    if(!$_SESSION['activa']) header('Location: login.php');
+    if(!$_SESSION['activa']) header('Location: login.php');*/
 ?>
 
 <head>
