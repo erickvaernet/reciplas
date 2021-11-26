@@ -144,11 +144,12 @@ require "database.php";
                 <tbody>
                     <?php
                     $sql = "SELECT idArt as codigo , a.Nombre nombre_articulo, a.descripcion descripcion_articulo,
-                     c.Nombre categoria, a.stock stock, um.Nombre unidad_medida 
-                     FROM `Articulo` a inner JOIN Unidad_Medida um on a.Unidad_Medida_idUnidad_Medida = um.idUnidad_Medida 
-                     inner JOIN Sector_Deposito se on a.Sector_Deposito_idSector_Deposito = se.idSector_Deposito 
-                     inner JOIN Tipo t on a.Tipo_idTipo= t.idTipo 
-                     inner JOIN Categoria c on a.Categoria_idCategoria = c.idCategoria";
+                    c.Nombre categoria, a.stock stock, um.Nombre unidad_medida 
+                    FROM `Articulo` a inner JOIN Unidad_Medida um on a.Unidad_Medida_idUnidad_Medida = um.idUnidad_Medida 
+                    inner JOIN Sector_Deposito se on a.Sector_Deposito_idSector_Deposito = se.idSector_Deposito 
+                    inner JOIN Tipo t on a.Tipo_idTipo= t.idTipo 
+                    inner JOIN Categoria c on a.Categoria_idCategoria = c.idCategoria
+                    where Tipo_idTipo=2";
 
                     $query = mysqli_query($enlace, $sql);
                     $resultado = $enlace->query($sql);
