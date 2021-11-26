@@ -1,5 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php
+    require "database.php";
+    /*
+    session_start();
+    if(!$_SESSION['activa']) header('Location: login.php');*/
+?>
 
 <head>
     <meta charset="UTF-8" />
@@ -125,46 +129,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row" class="table-dark">1</th>
-                        <td class="table-dark">Pellets Am</td>
-                        <td class="table-dark">ninguna</td>
-                        <td class="table-dark">Pellets</td>
-                        <td class="table-dark">100</td>
-                        <td class="table-dark">Kilogramos</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="table-dark">2</th>
-                        <td class="table-dark">Pellets AZ</td>
-                        <td class="table-dark">ninguna</td>
-                        <td class="table-dark">Pellets</td>
-                        <td class="table-dark">140</td>
-                        <td class="table-dark">Kilogramos</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="table-dark">3</th>
-                        <td class="table-dark">Pellets N</td>
-                        <td class="table-dark">ninguna</td>
-                        <td class="table-dark">Pellets</td>
-                        <td class="table-dark">1000</td>
-                        <td class="table-dark">Kilogramos</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="table-dark">4</th>
-                        <td class="table-dark">Pellets X</td>
-                        <td class="table-dark">ninguna</td>
-                        <td class="table-dark">Pellets</td>
-                        <td class="table-dark">500</td>
-                        <td class="table-dark">Kilogramos</td>
-                    </tr>
-                    <tr>
-                        <th scope="row" class="table-dark">5</th>
-                        <td class="table-dark">Pellets BL</td>
-                        <td class="table-dark">ninguna</td>
-                        <td class="table-dark">Pellets</td>
-                        <td class="table-dark">280</td>
-                        <td class="table-dark">Kilogramos</td>
-                    </tr>
+                    <?php
+                    $sql= "SELECT idArt as codigo , a.Nombre nombre_articulo, a.descripcion descripcion_articulo,
+                     c.Nombre categoria, a.stock stock, um.Nombre unidad_medida 
+                     FROM `Articulo` a inner JOIN Unidad_Medida um on a.Unidad_Medida_idUnidad_Medida = um.idUnidad_Medida 
+                     inner JOIN Sector_Deposito se on a.Sector_Deposito_idSector_Deposito = se.idSector_Deposito 
+                     inner JOIN Tipo t on a.Tipo_idTipo= t.idTipo 
+                     inner JOIN Categoria c on a.Categoria_idCategoria = c.idCategoria";
+
+                    //$sql = "SELECT * FROM articulos";                    
+                    $query=mysqli_query($enlace,$sql) ;
+                    $resultado = $enlace->query($sql) ;
+                    
+                    if($resultado->num_rows>0){
+
+                        for($i=0; $i<$resultado->num_rows;$i++){
+                            $fila = $resultado->fetch_assoc();
+
+                            $codigo_articulo = $fila['codigo'];
+                            $nombre_articulo = $fila['nombre_articulo'];
+                            $descripcion_articulo = $fila['descripcion_articulo'];
+                            $categoria_articulo = $fila['categoria'];
+                            $stock_articulo = $fila['stock'];
+                            $unidad_medida = $fila['unidad_medida'];   
+
+                            print " <tr>
+                            <th scope='row' class='table-dark'>$codigo_articulo</th>
+                            <td class='table-dark'>$nombre_articulo</td>
+                            <td class='table-dark'>$descripcion_articulo</td>
+                            <td class='table-dark'>$categoria_articulo</td>
+                            <td class='table-dark'>$stock_articulo</td>
+                            <td class='table-dark'>$unidad_medida</td>
+                            </tr>";
+                        }
+                    }                
+                    else{
+                        print "ERROR CRITICO";
+                    }   
+                    ?>
                 </tbody>
             </table>
         </div>

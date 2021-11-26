@@ -63,13 +63,14 @@
                                         $datos= mysqli_fetch_array($query);
                                         //session_start();
                                         $_SESSION['activa']=true;
+                                        /*
                                         $_SESSION['id_usuario']=$datos['id_usuario'];
                                         $_SESSION['nombre']=$datos['nombre'];
                                         $_SESSION['apellido']=$datos['apellido'];                                        
                                         $_SESSION['email']=$datos['email'];
                                         $_SESSION['sexo_id']=$datos['sexos_id_sexo'];
                                         $_SESSION['mejor_tiempo']=$datos['mejor_tiempo'];
-                                        
+                                        */                                        
                                         header('Location: mensaje.php?msj=1');
                                         //print "<p style='font-size: 4rem;'>exito </p>";
                                     }

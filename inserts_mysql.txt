@@ -1,0 +1,24 @@
+insert into Unidad_Medida (nombre) values ("kilogramos");
+insert into Unidad_Medida (nombre) values ("Unidades");
+insert into Unidad_Medida (nombre) values ("Toneladas");
+insert into Unidad_Medida (nombre) values ("Gramos");
+
+
+insert into Sector_Deposito (nombre) values ("materia prima");
+insert into Sector_Deposito (nombre) values ("producto");
+
+
+insert into Tipo (nombre) values ("materia prima");
+insert into Tipo (nombre) values ("producto");
+
+insert INTO Categoria (nombre, descripcion) values("pellets-r", "Pellets provenientes de material reciclado");
+insert INTO Categoria (nombre, descripcion) values("Muebles", "Muebles de madera reciclada");
+insert INTO Categoria (nombre, descripcion) values("Envases", "Envases hechos a partir de plastico reciclado");
+
+insert into Articulo (Descripcion, Nombre, precio_venta, precio_compra, stock, stock_minimo, Activo, Unidad_Medida_idUnidad_Medida, Sector_Deposito_idSector_Deposito, tipo_idtipo, categoria_idCategoria) values("Envase reciclable", "Envase R",20,10,1000,100,true,2,2,2,3);
+
+SELECT * FROM `Articulo` a
+inner JOIN Unidad_Medida um on a.Unidad_Medida_idUnidad_Medida = um.idUnidad_Medida
+inner JOIN Sector_Deposito se on a.Sector_Deposito_idSector_Deposito = se.idSector_Deposito
+inner JOIN Tipo t on a.Tipo_idTipo= t.idTipo
+inner JOIN Categoria c on a.Categoria_idCategoria = c.idCategoria;
