@@ -1,0 +1,374 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Tipo_Doc`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Tipo_Doc` (
+  `idTipo_Doc` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idTipo_Doc`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Persona`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Persona` (
+  `id_persona` INT NOT NULL,
+  ` Nombre` VARCHAR(45) NULL,
+  `Apellido` VARCHAR(45) NULL,
+  `Nro_Documento` INT NOT NULL,
+  `email` VARCHAR(45) NULL,
+  `Direccion` VARCHAR(45) NULL,
+  `Telefono` VARCHAR(15) NULL,
+  `Activo` TINYINT(1) NULL,
+  `Tipo_Doc_idTipo_Doc` INT NOT NULL,
+  PRIMARY KEY (`id_persona`),
+  INDEX `fk_Persona_Tipo_Doc_idx` (`Tipo_Doc_idTipo_Doc` ASC)  ,
+  CONSTRAINT `fk_Persona_Tipo_Doc`
+    FOREIGN KEY (`Tipo_Doc_idTipo_Doc`)
+    REFERENCES `mydb`.`Tipo_Doc` (`idTipo_Doc`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Cliente`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Cliente` (
+  `Persona_id_persona` INT NOT NULL,
+  `Saldo` DECIMAL NULL,
+  PRIMARY KEY (`Persona_id_persona`),
+  INDEX `fk_Cliente_Persona1_idx` (`Persona_id_persona` ASC)  ,
+  CONSTRAINT `fk_Cliente_Persona1`
+    FOREIGN KEY (`Persona_id_persona`)
+    REFERENCES `mydb`.`Persona` (`id_persona`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Estado_pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Estado_pedido` (
+  `idEstado_pedido` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idEstado_pedido`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Pedido` (
+  `Num-pedido` INT NOT NULL AUTO_INCREMENT,
+  `Fecha_entrega` VARCHAR(15) NULL,
+  `Descripcion` VARCHAR(45) NULL,
+  `Estado_pedido_idEstado_pedido` INT NOT NULL,
+  `Cliente_Persona_id_persona` INT NOT NULL,
+  PRIMARY KEY (`Num-pedido`),
+  INDEX `fk_Pedido_Estado_pedido1_idx` (`Estado_pedido_idEstado_pedido` ASC)  ,
+  INDEX `fk_Pedido_Cliente1_idx` (`Cliente_Persona_id_persona` ASC)  ,
+  CONSTRAINT `fk_Pedido_Estado_pedido1`
+    FOREIGN KEY (`Estado_pedido_idEstado_pedido`)
+    REFERENCES `mydb`.`Estado_pedido` (`idEstado_pedido`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Pedido_Cliente1`
+    FOREIGN KEY (`Cliente_Persona_id_persona`)
+    REFERENCES `mydb`.`Cliente` (`Persona_id_persona`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Unidad_Medida`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Unidad_Medida` (
+  `idUnidad_Medida` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idUnidad_Medida`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Sector_Deposito`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Sector_Deposito` (
+  `idSector_Deposito` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idSector_Deposito`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Tipo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Tipo` (
+  `idTipo` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idTipo`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Categoria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Categoria` (
+  `idCategoria` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `Descripcion` VARCHAR(45) NULL,
+  PRIMARY KEY (`idCategoria`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Articulo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Articulo` (
+  `idArt` INT NOT NULL AUTO_INCREMENT,
+  `Descripcion` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(45) NULL,
+  `Precio_Venta` DECIMAL NULL,
+  `Precio_Compra` DECIMAL NULL,
+  `Stock` VARCHAR(45) NOT NULL,
+  `Stock_minimo` VARCHAR(45) NULL,
+  `Activo` TINYINT(1) NULL,
+  `Unidad_Medida_idUnidad_Medida` INT NOT NULL,
+  `Sector_Deposito_idSector_Deposito` INT NOT NULL,
+  `Tipo_idTipo` INT NOT NULL,
+  `Categoria_idCategoria` INT NOT NULL,
+  PRIMARY KEY (`idArt`),
+  INDEX `fk_Articulo_Unidad_Medida1_idx` (`Unidad_Medida_idUnidad_Medida` ASC)  ,
+  INDEX `fk_Articulo_Sector_Deposito1_idx` (`Sector_Deposito_idSector_Deposito` ASC)  ,
+  INDEX `fk_Articulo_Tipo1_idx` (`Tipo_idTipo` ASC)  ,
+  INDEX `fk_Articulo_Categoria1_idx` (`Categoria_idCategoria` ASC)  ,
+  CONSTRAINT `fk_Articulo_Unidad_Medida1`
+    FOREIGN KEY (`Unidad_Medida_idUnidad_Medida`)
+    REFERENCES `mydb`.`Unidad_Medida` (`idUnidad_Medida`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Articulo_Sector_Deposito1`
+    FOREIGN KEY (`Sector_Deposito_idSector_Deposito`)
+    REFERENCES `mydb`.`Sector_Deposito` (`idSector_Deposito`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Articulo_Tipo1`
+    FOREIGN KEY (`Tipo_idTipo`)
+    REFERENCES `mydb`.`Tipo` (`idTipo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Articulo_Categoria1`
+    FOREIGN KEY (`Categoria_idCategoria`)
+    REFERENCES `mydb`.`Categoria` (`idCategoria`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Linea_Pedido`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Linea_Pedido` (
+  `Precio_Unitario` DECIMAL NOT NULL,
+  `Linea_Pedidocol` VARCHAR(45) NULL,
+  `Pedido_Num-pedido` INT NOT NULL,
+  `Articulo_idArt` INT NOT NULL,
+  PRIMARY KEY (`Pedido_Num-pedido`, `Articulo_idArt`),
+  INDEX `fk_Linea_Pedido_Articulo1_idx` (`Articulo_idArt` ASC)  ,
+  CONSTRAINT `fk_Linea_Pedido_Pedido1`
+    FOREIGN KEY (`Pedido_Num-pedido`)
+    REFERENCES `mydb`.`Pedido` (`Num-pedido`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Linea_Pedido_Articulo1`
+    FOREIGN KEY (`Articulo_idArt`)
+    REFERENCES `mydb`.`Articulo` (`idArt`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Proveedor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Proveedor` (
+  `Persona_id_persona` INT NOT NULL,
+  `Vende` VARCHAR(45) NULL,
+  PRIMARY KEY (`Persona_id_persona`),
+  CONSTRAINT `fk_Proveedor_Persona1`
+    FOREIGN KEY (`Persona_id_persona`)
+    REFERENCES `mydb`.`Persona` (`id_persona`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Sector`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Sector` (
+  `idSector` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idSector`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `Apellido` VARCHAR(45) NULL,
+  `Password` VARCHAR(45) not null,
+  `Nom_usuario` VARCHAR(45) NULL,
+  `Sector_idSector` INT NOT NULL,
+  `Fecha_registro` VARCHAR(45) NULL,
+  `Id_Administrador` INT NOT NULL,
+  INDEX `fk_Usuario_Sector1_idx` (`Sector_idSector` ASC)  ,
+  PRIMARY KEY (`idUsuario`),
+  INDEX `fk_Usuario_Usuario1_idx` (`Id_Administrador` ASC)  ,
+  CONSTRAINT `fk_Usuario_Sector1`
+    FOREIGN KEY (`Sector_idSector`)
+    REFERENCES `mydb`.`Sector` (`idSector`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Usuario_Usuario1`
+    FOREIGN KEY (`Id_Administrador`)
+    REFERENCES `mydb`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Orden_Compra`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Orden_Compra` (
+  `idOrden_Compra` INT NOT NULL AUTO_INCREMENT,
+  `Fecha_pago` VARCHAR(45) NULL,
+  `Fecha_Compromiso` VARCHAR(45) NULL,
+  `Proveedor_Persona_id_persona` INT NOT NULL,
+  `Crea_Id_Usuario` INT NOT NULL,
+  `Abona_ID_Usuario` INT NULL,
+  PRIMARY KEY (`idOrden_Compra`),
+  INDEX `fk_Orden_Compra_Proveedor1_idx` (`Proveedor_Persona_id_persona` ASC)  ,
+  INDEX `fk_Orden_Compra_Usuario1_idx` (`Crea_Id_Usuario` ASC)  ,
+  INDEX `fk_Orden_Compra_Usuario2_idx` (`Abona_ID_Usuario` ASC)  ,
+  CONSTRAINT `fk_Orden_Compra_Proveedor1`
+    FOREIGN KEY (`Proveedor_Persona_id_persona`)
+    REFERENCES `mydb`.`Proveedor` (`Persona_id_persona`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Orden_Compra_Usuario1`
+    FOREIGN KEY (`Crea_Id_Usuario`)
+    REFERENCES `mydb`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Orden_Compra_Usuario2`
+    FOREIGN KEY (`Abona_ID_Usuario`)
+    REFERENCES `mydb`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Estado_Orden_Compra`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Estado_Orden_Compra` (
+  `Orden_Compra_idOrden_Compra` INT NOT NULL,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`Orden_Compra_idOrden_Compra`),
+  CONSTRAINT `fk_Estado_Orden_Compra_Orden_Compra1`
+    FOREIGN KEY (`Orden_Compra_idOrden_Compra`)
+    REFERENCES `mydb`.`Orden_Compra` (`idOrden_Compra`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Remito`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Remito` (
+  `idRemito` INT NOT NULL AUTO_INCREMENT,
+  `Orden_Compra_idOrden_Compra` INT NOT NULL,
+  PRIMARY KEY (`idRemito`, `Orden_Compra_idOrden_Compra`),
+  INDEX `fk_Remito_Orden_Compra1_idx` (`Orden_Compra_idOrden_Compra` ASC)  ,
+  CONSTRAINT `fk_Remito_Orden_Compra1`
+    FOREIGN KEY (`Orden_Compra_idOrden_Compra`)
+    REFERENCES `mydb`.`Orden_Compra` (`idOrden_Compra`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Factura`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Factura` (
+  `idFactura` INT NOT NULL AUTO_INCREMENT,
+  `Fecha_factura` VARCHAR(45) NULL,
+  `Usuario_idUsuario` INT NOT NULL,
+  `Pedido_Num-pedido` INT NOT NULL,
+  PRIMARY KEY (`idFactura`),
+  INDEX `fk_Factura_Usuario1_idx` (`Usuario_idUsuario` ASC)  ,
+  INDEX `fk_Factura_Pedido1_idx` (`Pedido_Num-pedido` ASC)  ,
+  CONSTRAINT `fk_Factura_Usuario1`
+    FOREIGN KEY (`Usuario_idUsuario`)
+    REFERENCES `mydb`.`Usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Factura_Pedido1`
+    FOREIGN KEY (`Pedido_Num-pedido`)
+    REFERENCES `mydb`.`Pedido` (`Num-pedido`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Linea_OC`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Linea_OC` (
+  `Orden_Compra_idOrden_Compra` INT NOT NULL,
+  `Articulo_idArt` INT NOT NULL,
+  `Precio_Unitario` DECIMAL NULL,
+  `Cantidad` DECIMAL NULL,
+  PRIMARY KEY (`Orden_Compra_idOrden_Compra`, `Articulo_idArt`),
+  INDEX `fk_Linea_OC_Articulo1_idx` (`Articulo_idArt` ASC)  ,
+  CONSTRAINT `fk_Linea_OC_Orden_Compra1`
+    FOREIGN KEY (`Orden_Compra_idOrden_Compra`)
+    REFERENCES `mydb`.`Orden_Compra` (`idOrden_Compra`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Linea_OC_Articulo1`
+    FOREIGN KEY (`Articulo_idArt`)
+    REFERENCES `mydb`.`Articulo` (`idArt`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
