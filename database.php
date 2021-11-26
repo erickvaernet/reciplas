@@ -2,7 +2,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $clave = "";
-$baseDeDatos = "juego_memoria";
+$baseDeDatos = "mydb";
 
 $enlace = mysqli_connect($servidor, $usuario, $clave, $baseDeDatos);
 if (!$enlace) {
