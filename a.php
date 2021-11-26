@@ -193,37 +193,51 @@ require "database.php";
                         <form action="ingresararticulo.php" method="post">
                             <div class="modal-body">
                                 <p>Tipo de articulo:</p>
-                                 <input class="form-check-input mt-0"   type="radio" id="mat_prima" name="tipo_art" value="1">
+                                 <input class="form-check-input mt-0" type="radio" id="mat_prima" name="tipo_art" value="1" required>
                                  <label for="html">Materia prima</label><br>
 
-                                 <input class="form-check-input mt-0"   type="radio" id="producto" name="tipo_art" value="2">
+                                 <input class="form-check-input mt-0" type="radio" id="producto" name="tipo_art" value="2" required>
                                  <label for="css">Producto</label><br>
 
                                 Nombre:
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nombre_art" id="nombre_art" placeholder="Nombre del articulo">
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nombre_art" id="nombre_art" placeholder="Nombre del articulo" required>
                                 </div>
                                 Descripcion:
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="desciripcion_art" id="desciripcion_art" placeholder="Nombre del articulo">
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="desciripcion_art" id="desciripcion_art" placeholder="Nombre del articulo" required>
                                 </div>
 
                                 Cantidad en Stock:
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="stock_art" id="stock_art" placeholder="Nombre del articulo">
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="stock_art" id="stock_art" placeholder="Nombre del articulo" required>
                                 </div>
 
                                 Precio (venta/compra segun corresponda):
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="precio_art" id="precio_art" placeholder="Nombre del articulo">
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="precio_art" id="precio_art" placeholder="Nombre del articulo" required>
                                 </div>
+
                                 Categoria:
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="categoria_art" id="categoria_art" placeholder="Nombre del articulo">
+                                    <select class="form-select" id="inputGroupSelect01" name="categoria_art" required >
+                                        <option selected>Choose...</option>
+                                        <option value="1">Pellets-R</option>
+                                        <option value="2">Muebles</option>                                         
+                                        <option value="3">Envases</option>                                                                                 
+                                        <option value="4">Reciclables</option>                                   
+                                    </select>
                                 </div>
+
                                 Unidad_Medida:
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="um_art" id="um_art" placeholder="Nombre del articulo">
+                                    <select class="form-select" id="inputGroupSelect01" name="um_art" required>
+                                        <option selected>Choose...</option>
+                                        <option value="1">Kilogramos</option>
+                                        <option value="2">Unidades</option>
+                                        <option value="3">Tonelada</option>
+                                        <option value="4">Gramos</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="modal-footer">

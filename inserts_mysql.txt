@@ -18,7 +18,7 @@ insert INTO Categoria (nombre, descripcion) values("pellets-r", "Pellets proveni
 insert INTO Categoria (nombre, descripcion) values("Muebles", "Muebles de madera reciclada");
 insert INTO Categoria (nombre, descripcion) values("Envases", "Envases hechos a partir de plastico reciclado");
 
-insert into Articulo (Descripcion, Nombre, precio_venta, precio_compra, stock, stock_minimo, Activo, Unidad_Medida_idUnidad_Medida, Sector_Deposito_idSector_Deposito, tipo_idtipo, categoria_idCategoria) values("Envase reciclable", "Envase R",20,10,1000,100,true,2,2,2,3);
+insert into Articulo (Descripcion, Nombre, precio_venta, precio_compra, stock, stock_minimo, Activo, Unidad_Medida_idUnidad_Medida, Sector_Deposito_idSector_Deposito, tipo_idtipo, categoria_idCategoria) values("Envase reciclable", "Envase R",20,NULL,1000,100,true,2,2,2,3);
 insert into Articulo (Descripcion, Nombre, precio_venta, precio_compra, stock, stock_minimo, Activo, Unidad_Medida_idUnidad_Medida, Sector_Deposito_idSector_Deposito, tipo_idtipo, categoria_idCategoria) values("Envase reciclable tipo 2", "Envase R2",20,NULL,1000,100,true,2,2,2,3);
 
 SELECT * FROM `Articulo` a
