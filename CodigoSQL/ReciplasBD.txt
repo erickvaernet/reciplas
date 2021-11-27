@@ -28,8 +28,8 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Persona`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Persona` (
-  `id_persona` INT NOT NULL,
-  ` Nombre` VARCHAR(45) NULL,
+  `id_persona` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
   `Apellido` VARCHAR(45) NULL,
   `Nro_Documento` INT NOT NULL,
   `email` VARCHAR(45) NULL,
@@ -78,7 +78,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Pedido` (
   `Num-pedido` INT NOT NULL AUTO_INCREMENT,
-  `Fecha_entrega` VARCHAR(15) NULL,
+  `Fecha_entrega` DATE NULL,
   `Descripcion` VARCHAR(45) NULL,
   `Estado_pedido_idEstado_pedido` INT NOT NULL,
   `Cliente_Persona_id_persona` INT NOT NULL,
