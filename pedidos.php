@@ -59,7 +59,7 @@ require "database.php";
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="./cargarpedido.php">Cargar Pedido</a></li>
-                                <li><a class="dropdown-item" href="#">Pedidos</a></li>
+                                <li><a class="dropdown-item" href="./pedidos.php">Pedidos</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -138,23 +138,21 @@ require "database.php";
             <table class="table table-dark bordeado">
                 <thead>
                     <tr>
-                        <th scope="col" class="table-dark">Codigo</th>
-                        <th scope="col" class="table-dark">Nombre</th>
-                        <th scope="col" class="table-dark">Descripcion</th>
-                        <th scope="col" class="table-dark">Categoria</th>
-                        <th scope="col" class="table-dark">Stock</th>
-                        <th scope="col" class="table-dark">Unidad de medida</th>
-                        <th scope="col" class="table-dark">Tipo</th>
+                        <th scope="col" class="table-dark">Numero</th>
+                        <th scope="col" class="table-dark">Nombre cliente</th>
+                        <th scope="col" class="table-dark">Apellido cliente</th>
+                        <th scope="col" class="table-dark">Fecha entrega</th>
+                        <th scope="col" class="table-dark">Direccion entrega</th>
+                        <th scope="col" class="table-dark">Estado</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $sql = "SELECT idArt as codigo , a.Nombre nombre_articulo, a.descripcion descripcion_articulo,
-                    c.Nombre categoria, a.stock stock, um.Nombre unidad_medida, a.Tipo_idTipo tipo_articulo 
-                    FROM `Articulo` a inner JOIN Unidad_Medida um on a.Unidad_Medida_idUnidad_Medida = um.idUnidad_Medida 
-                    inner JOIN Sector_Deposito se on a.Sector_Deposito_idSector_Deposito = se.idSector_Deposito 
-                    inner JOIN Tipo t on a.Tipo_idTipo= t.idTipo 
-                    inner JOIN Categoria c on a.Categoria_idCategoria = c.idCategoria";
+                    $sql = "SELECT Num_pedido numero, per.Nombre nombre, per.Apellido apellido ,Fecha_entrega fecha, 
+                    Descripcion as direccion, ep.Nombre as estado  FROM `pedido` ped
+                    inner join Cliente on Cliente_Persona_id_persona= Persona_id_persona 
+                    inner join Persona per on Persona_id_persona= id_persona
+                    inner join Estado_pedido ep on Estado_pedido_idEstado_pedido=idEstado_pedido";
 
                     $query = mysqli_query($enlace, $sql);
                     $resultado = $enlace->query($sql);
@@ -164,23 +162,20 @@ require "database.php";
                         for ($i = 0; $i < $resultado->num_rows; $i++) {
                             $fila = $resultado->fetch_assoc();
 
-                            $codigo_articulo = $fila['codigo'];
-                            $nombre_articulo = $fila['nombre_articulo'];
-                            $descripcion_articulo = $fila['descripcion_articulo'];
-                            $categoria_articulo = $fila['categoria'];
-                            $stock_articulo = $fila['stock'];
-                            $unidad_medida = $fila['unidad_medida'];
-                            $tipo_articulo = $fila['tipo_articulo'];
+                            $num_ped = $fila['numero'];
+                            $nombre_cl = $fila['nombre'];
+                            $apellido_cl = $fila['apellido'];
+                            $fecha_ped = $fila['fecha'];
+                            $dir_ped = $fila['direccion'];
+                            $estado_ped = $fila['estado'];                            
 
                            print " <tr>
-                            <th scope='row' class='table-dark'>$codigo_articulo</th>
-                            <td class='table-dark'>$nombre_articulo</td>
-                            <td class='table-dark'>$descripcion_articulo</td>
-                            <td class='table-dark'>$categoria_articulo</td>
-                            <td class='table-dark'>$stock_articulo</td>
-                            <td class='table-dark'>$unidad_medida</td>";
-                            if($tipo_articulo==1)print"<td class='table-dark'>Materia Prima</td>";
-                            if($tipo_articulo==2)print"<td class='table-dark'>Producto</td>";
+                            <th scope='row' class='table-dark'>$num_ped</th>
+                            <td class='table-dark'>$nombre_cl</td>
+                            <td class='table-dark'>$apellido_cl</td>
+                            <td class='table-dark'>$fecha_ped</td>
+                            <td class='table-dark'>$dir_ped</td>
+                            <td class='table-dark'>$estado_ped</td>";
                            print "</tr>";
                         }
                     } else {

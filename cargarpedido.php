@@ -1,7 +1,7 @@
 <?php
 require "database.php";
 session_start();
-$query = $enlace->query("SELECT idArt, Descripcion, Nombre, Precio_Venta, Unidad_Medida_idUnidad_Medida FROM Articulo");
+$query = $enlace->query("SELECT idArt, Descripcion, Nombre, Precio_Venta, Unidad_Medida_idUnidad_Medida FROM Articulo where Precio_Venta is not null");
 $articulos = array();
 while ($row = $query->fetch_assoc()) {
     $articulos[array_shift($row)] = $row;
@@ -38,7 +38,7 @@ while ($row = $query->fetch_assoc()) {
                                 Inventario
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Articulos</a></li>
+                                <li><a class="dropdown-item" href="./articulos.php">Articulos</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -65,8 +65,8 @@ while ($row = $query->fetch_assoc()) {
                                 Ventas
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="./cargarpedido.php">Cargar Pedido</a></li>
+                                <li><a class="dropdown-item" href="./pedidos.php">Pedidos</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

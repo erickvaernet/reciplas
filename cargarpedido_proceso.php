@@ -16,4 +16,7 @@ foreach ($pedido['articulos'] as $articulo) {
     mysqli_stmt_bind_param($query, "siss", $articulo['id'], $idPedido, $articulo['cantidad'], $articulo['precio_venta']);
     $result = mysqli_stmt_execute($query);
 }
+
+header('Location: index.php');
+die();
 ?>
