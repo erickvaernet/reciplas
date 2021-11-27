@@ -30,7 +30,7 @@ require "database.php";
         //$sql = "INSERT INTO usuarios (nombre, apellido, email, clave, sexos_id_sexo,mejor_tiempo) VALUES ('$nombre', '$apellido', '$email', '$contrasena', $sexo, '99:59:59')";
         //print var_dump($sql);
         mysqli_query($enlace,$sql) ?
-            header('Location: a.php'):
+            header('Location: articulos.php'):
             print"<div>Lo siento hubo algun problema en la creacion de usuario, contacte con el administrador</div>";                                
         
     }

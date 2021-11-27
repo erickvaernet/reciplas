@@ -116,7 +116,7 @@ require "database.php";
             <!---boton cambiar articulo-->
             <div class="btn-group">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Todos
+                    Productos
                 </button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="./articulos.php">Todos</a></li>
