@@ -37,5 +37,13 @@ insert into Tipo_Doc (Nombre) values ("DNI");
 INSERT into
 Persona (id_Persona, Nombre, Apellido, Nro_documento, email,Direccion, Telefono,Activo, Tipo_Doc_idTipo_Doc) 
 Values (1,"Erick", "Vaernet", 38964789, "erick@gmail.com","M T de Alvear 335", "3624543465", true, 1);
+insert into Cliente (Persona_id_persona) values (1);
 
 insert into Estado_pedido (Nombre) VALUES (1);
+
+
+INSERT into
+Persona (id_Persona, Nombre, Apellido, Nro_documento, email,Direccion, Telefono,Activo, Tipo_Doc_idTipo_Doc) 
+Values (2,"Rodrigo", "Kirsch", 36264489, "rodri@gmail.com","Calle falsa 567", "3624546467", true, 1);
+
+insert into Cliente (Persona_id_persona) values (2);
