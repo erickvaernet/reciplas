@@ -102,6 +102,10 @@ require "database.php";
                         <li class="nav-item">
                             <a class="nav-link" href="#">Configuracion</a>
                         </li>
+                        <!---Cerrar sesion-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="./logout.php">Cerrar Sesion</a>
+                        </li>
 
                 </div>
             </div>

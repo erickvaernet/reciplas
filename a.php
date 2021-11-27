@@ -2,7 +2,8 @@
 require "database.php";
 /*
     session_start();
-    if(!$_SESSION['activa']) header('Location: login.php');*/
+    if(!$_SESSION['activa']) header('Location: login.php');
+    insert into Usuario (nombre,Apellido,Password,Nom_usuario, Sector_idSector, Fecha_registro, Id_Administrador) values();*/
 ?>
 
 <head>

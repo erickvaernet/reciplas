@@ -241,7 +241,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
   `Password` VARCHAR(45) not null,
   `Nom_usuario` VARCHAR(45) NULL,
   `Sector_idSector` INT NOT NULL,
-  `Fecha_registro` VARCHAR(45) NULL,
+  `Fecha_registro` DATE NULL,
   `Id_Administrador` INT NOT NULL,
   INDEX `fk_Usuario_Sector1_idx` (`Sector_idSector` ASC)  ,
   PRIMARY KEY (`idUsuario`),

@@ -27,3 +27,7 @@ inner JOIN Unidad_Medida um on a.Unidad_Medida_idUnidad_Medida = um.idUnidad_Med
 inner JOIN Sector_Deposito se on a.Sector_Deposito_idSector_Deposito = se.idSector_Deposito
 inner JOIN Tipo t on a.Tipo_idTipo= t.idTipo
 inner JOIN Categoria c on a.Categoria_idCategoria = c.idCategoria;
+
+insert into Sector (Nombre) values ("Directorio");
+
+insert into Usuario (nombre,Apellido,Password,Nom_usuario, Sector_idSector, Id_Administrador) values("Lionel", " Messi", MD5("123456"), "admin",1,1);

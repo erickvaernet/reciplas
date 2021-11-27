@@ -21,8 +21,7 @@
         <header>
             <nav>
                 <ul>
-                    <li><a href="./login.php">Inicio Sesion</a></li>
-                    <li><a href="./signup.php">Registrarse</a></li>  
+                    <li><a href="./index.php">RECIPLAS</a></li>
                 </ul>
             </nav>
         </header>
@@ -33,17 +32,14 @@
                         <h3 style="font-size:2rem; text-decoration:underline; margin:15px">Ingreso de usuario</h3>
                         <div class="description">Ingrese los datos de la cuenta</div>
                         <?php      
-                            if(!empty($_POST['email'])){
+                            if(!empty($_POST['usuario'])){
                                 $contrasena = $_POST['contrasena'];
-                                $email = $_POST['email'];                               
+                                $usuario = $_POST['usuario'];                               
 
                                 //print "<p style='font-size:4rem'>SIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII<p>";
                                 $array_errores = array();
 
-                                empty($email)? array_push($array_errores, "El campo email no puede estar vacio"):"";
-                                strpos($email, "@") === false? array_push($array_errores, "El email debe contener un @"):"";
-                                strpos($email, ".") === false? array_push($array_errores, "El email debe contener un ."):"";
-
+                                empty($usuario)? array_push($array_errores, "El campo usuario no puede estar vacio"):"";
                                 empty($contrasena)? array_push($array_errores, "El campo contraseña no puede estar vacío"):"";
                                 strlen($contrasena) < 6? array_push($array_errores, "El campo contraseña no puede tener menos de 6 caracteres."):"";
 
@@ -56,36 +52,29 @@
                                 }
                                 else{   
                                     $contrasena= md5($contrasena);
-                                    $sql = "SELECT * FROM usuarios WHERE email = '$email' AND clave= '$contrasena'";
+                                    $sql = "SELECT * FROM Usuario WHERE Nom_usuario = '$usuario' AND Password= '$contrasena'";
                                     /*usar header('Location: '.$nuevaURL.php); para redireccionar y die(); */
                                     $query=mysqli_query($enlace,$sql) ;
                                     if(mysqli_num_rows($query)>0){
                                         $datos= mysqli_fetch_array($query);
                                         //session_start();
-                                        $_SESSION['activa']=true;
-                                        /*
-                                        $_SESSION['id_usuario']=$datos['id_usuario'];
-                                        $_SESSION['nombre']=$datos['nombre'];
-                                        $_SESSION['apellido']=$datos['apellido'];                                        
-                                        $_SESSION['email']=$datos['email'];
-                                        $_SESSION['sexo_id']=$datos['sexos_id_sexo'];
-                                        $_SESSION['mejor_tiempo']=$datos['mejor_tiempo'];
-                                        */                                        
-                                        header('Location: mensaje.php?msj=1');
-                                        //print "<p style='font-size: 4rem;'>exito </p>";
+                                        $_SESSION['activa']=true;                                        
+                                        $_SESSION['idUsuario']=$datos['idUsuario'];
+                                        header('Location: index.php');
+                                        die();
                                     }
                                     else{
                                         session_destroy();
-                                        print"<div class='lista-errores'><div class='error'>Email o contraseña invalido</div></div>"; 
+                                        print"<div class='lista-errores'><div class='error'>usuario o contraseña invalido</div></div>"; 
                                     }
                                 }
                             }
                         ?>
-                        <label for="email">e-mail:</label>
-                        <input type="email" name="email" id="email" placeholder="Ingrese su e-mail">
+                        <label for="usuario">Usuario:</label>
+                        <input type="text" name="usuario" id="usuario" placeholder="Ingrese su usuario">
 
                         <label for="contrasena">Contraseña:</label>
-                        <input type="password" name="contrasena" id="contrasena" placeholder="Ingrese la contraseña deseada">
+                        <input type="password" name="contrasena" id="contrasena" placeholder="Ingrese la contraseña">
 
                         <div class="contenedor-btn" style="margin-top: 30px;">
                             <input id="enviar" type="submit" value="Ingresar" name="enviar" style="width: 50%;">                           

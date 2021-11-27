@@ -30,11 +30,11 @@
                                 Inventario
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Articulos</a></li>
+                                <li><a class="dropdown-item" href="./articulos.php">Articulos</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Categotias</a></li>
+                                <li><a class="dropdown-item" href="#">Categorias</a></li>
                             </ul>
                         </li>
                         <!---Compras-->
@@ -101,6 +101,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Configuracion</a>
                         </li>
+                        <!---Cerrar sesion-->
+                        <li class="nav-item">
+                            <a class="nav-link" href="./logout.php">Cerrar Sesion</a>
+                        </li>
 
                 </div>
             </div>
@@ -108,145 +112,12 @@
 
     </header>
     <main>
-        <div class="centrar">
-            <!---boton cambiar articulo-->
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Todos
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Producto</a></li>
-                    <li><a class="dropdown-item" href="#">Materia prima</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                + Agregar Articulo
-                            </button>
-                        </a></li>
-                </ul>
-            </div>
-
-            <!---Tabla con articulos-->
-            <table class="table table-dark bordeado">
-                <thead>
-                    <tr>
-                        <th scope="col" class="table-dark">Codigo</th>
-                        <th scope="col" class="table-dark">Nombre</th>
-                        <th scope="col" class="table-dark">Descripcion</th>
-                        <th scope="col" class="table-dark">Categoria</th>
-                        <th scope="col" class="table-dark">Stock</th>
-                        <th scope="col" class="table-dark">Unidad de medida</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $sql = "SELECT idArt as codigo , a.Nombre nombre_articulo, a.descripcion descripcion_articulo,
-                     c.Nombre categoria, a.stock stock, um.Nombre unidad_medida 
-                     FROM `Articulo` a inner JOIN Unidad_Medida um on a.Unidad_Medida_idUnidad_Medida = um.idUnidad_Medida 
-                     inner JOIN Sector_Deposito se on a.Sector_Deposito_idSector_Deposito = se.idSector_Deposito 
-                     inner JOIN Tipo t on a.Tipo_idTipo= t.idTipo 
-                     inner JOIN Categoria c on a.Categoria_idCategoria = c.idCategoria";
-
-                    $query = mysqli_query($enlace, $sql);
-                    $resultado = $enlace->query($sql);
-
-                    if ($resultado->num_rows > 0) {
-
-                        for ($i = 0; $i < $resultado->num_rows; $i++) {
-                            $fila = $resultado->fetch_assoc();
-
-                            $codigo_articulo = $fila['codigo'];
-                            $nombre_articulo = $fila['nombre_articulo'];
-                            $descripcion_articulo = $fila['descripcion_articulo'];
-                            $categoria_articulo = $fila['categoria'];
-                            $stock_articulo = $fila['stock'];
-                            $unidad_medida = $fila['unidad_medida'];
-
-                            print " <tr>
-                        <th scope='row' class='table-dark'>$codigo_articulo</th>
-                        <td class='table-dark'>$nombre_articulo</td>
-                        <td class='table-dark'>$descripcion_articulo</td>
-                        <td class='table-dark'>$categoria_articulo</td>
-                        <td class='table-dark'>$stock_articulo</td>
-                        <td class='table-dark'>$unidad_medida</td>
-                      </tr>";
-                        }
-                    } else {
-                        print "ERROR CRITICO";
-                    }
-                    ?>
-                </tbody>
-            </table>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Registrar Articulo Nuevo</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="ingresararticulo.php" method="post">
-                            <div class="modal-body">
-                                <p>Tipo de articulo:</p>
-                                 <input class="form-check-input mt-0" type="radio" id="mat_prima" name="tipo_art" value="1" required>
-                                 <label for="html">Materia prima</label><br>
-
-                                 <input class="form-check-input mt-0" type="radio" id="producto" name="tipo_art" value="2" required>
-                                 <label for="css">Producto</label><br>
-
-                                Nombre:
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="nombre_art" id="nombre_art" placeholder="Nombre del articulo" required>
-                                </div>
-                                Descripcion:
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="desciripcion_art" id="desciripcion_art" placeholder="Nombre del articulo" required>
-                                </div>
-
-                                Cantidad en Stock:
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="stock_art" id="stock_art" placeholder="Nombre del articulo" required>
-                                </div>
-
-                                Precio (venta/compra segun corresponda):
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="precio_art" id="precio_art" placeholder="Nombre del articulo" required>
-                                </div>
-
-                                Categoria:
-                                <div class="input-group mb-3">
-                                    <select class="form-select" id="inputGroupSelect01" name="categoria_art" required >
-                                        <option selected>Choose...</option>
-                                        <option value="1">Pellets-R</option>
-                                        <option value="2">Muebles</option>                                         
-                                        <option value="3">Envases</option>                                                                                 
-                                        <option value="4">Reciclables</option>                                   
-                                    </select>
-                                </div>
-
-                                Unidad_Medida:
-                                <div class="input-group mb-3">
-                                    <select class="form-select" id="inputGroupSelect01" name="um_art" required>
-                                        <option selected>Choose...</option>
-                                        <option value="1">Kilogramos</option>
-                                        <option value="2">Unidades</option>
-                                        <option value="3">Tonelada</option>
-                                        <option value="4">Gramos</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                <button class="btn btn-primary" type="submit">Agregar</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div class="centrar f-oscuro" style="text-align: center; margin-top: 5px;">
+          <h1>RECIPLAS</h1>
+          <img src="./img/graficos2.png" alt="Graficos">
+          <br>
+          <p>.</p>
+            
         </div>
     </main>
 </body>
