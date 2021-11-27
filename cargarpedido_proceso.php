@@ -17,6 +17,6 @@ foreach ($pedido['articulos'] as $articulo) {
     $result = mysqli_stmt_execute($query);
 }
 
-header('Location: index.php');
+header('Location: pedidos.php');
 die();
 ?>
